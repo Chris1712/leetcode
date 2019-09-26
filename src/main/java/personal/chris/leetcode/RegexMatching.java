@@ -1,5 +1,7 @@
 package personal.chris.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -7,19 +9,25 @@ import java.util.regex.Pattern;
  */
 public class RegexMatching {
 
-    static int calls = 0;
+    private Map<String, Boolean> resultLookup = new HashMap<>();
 
-    public static boolean wrapper(String s, String p) {
-        calls = 0;
-
-        boolean result = isMatch(s, p);
-        System.out.println(calls);
+    /**
+     * Wrapping method to handle caching
+     */
+    boolean isMatch(String s, String p) {
+        String mapKey = s + "-" + p;
+        if (resultLookup.containsKey(mapKey)) {
+            return resultLookup.get(mapKey);
+        }
+        boolean result = checkMatch(s, p);
+        resultLookup.put(mapKey, result);
         return result;
     }
 
-    private static boolean isMatch(String s, String p) {
-        calls++;
-
+    /**
+     * Method for checking match logic
+     */
+    private boolean checkMatch(String s, String p) {
         if (s.length() == 0 && p.length() == 0) {
             return true; // We made it to the end of both strings!
         }
