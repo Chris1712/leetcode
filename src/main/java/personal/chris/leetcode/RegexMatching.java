@@ -1,21 +1,19 @@
 package personal.chris.leetcode;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 
 /**
  * To solve <a href="https://leetcode.com/problems/regular-expression-matching">10. Regular Expression Matching</a>
  */
 public class RegexMatching {
 
-    private Map<String, Boolean> resultLookup = new HashMap<>();
+    private Map<List<String>, Boolean> resultLookup = new HashMap<>();
 
     /**
      * Wrapping method to handle caching
      */
     boolean isMatch(String s, String p) {
-        String mapKey = s + "-" + p;
+        List<String> mapKey = Arrays.asList(s,p);
         if (resultLookup.containsKey(mapKey)) {
             return resultLookup.get(mapKey);
         }
@@ -53,10 +51,6 @@ public class RegexMatching {
         } else {
             return (isMatch(s.substring(1), p.substring(1)));
         }
-    }
-
-    public static boolean verify(String s, String p) {
-        return Pattern.compile("^" + p + "$").matcher(s).find();
     }
 
 }
