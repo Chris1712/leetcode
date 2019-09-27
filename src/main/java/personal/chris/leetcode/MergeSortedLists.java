@@ -2,35 +2,43 @@ package personal.chris.leetcode;
 
 import personal.chris.leetcode.util.ListNode;
 
+/**
+ * To solve <a href="https://leetcode.com/problems/merge-k-sorted-lists/">23. Merge k Sorted Lists</a>
+ */
 public class MergeSortedLists {
 
     public ListNode mergeKLists(ListNode[] lists) {
-        ListNode sortedHead = null;
-
-        /**
-         *  two approaches:
-         *  1: take first list, traverse and merge next list, repeat
-         *  If we have k lists of length l, expect to traverse ~ k^2 l / 2 nodes?
-         *  (First list k-1 times, second list k-2 times, ..., last list 1 time)
-         *  2: go through head of each list, pull out into new list. Seems messy and probably slower
-         *  Presumably there's something better
-         */
-
-
-        /**
-         * 8 lists
-         *  4 merges, 4 left
-         *  2 merges, 2 left
-         *  1 merge, done = 7 merges
-         *
-         *  16 lists
-         *  8 merges, 4 left
-         *  4 merges, 4 left
-         *  2 merges, 2 left
-         *  1 merge, done = 15 merges
-         */
-
+        if (lists.length == 0) {
+            return null;
+        }
+        ListNode sortedHead = lists[0];
+        int i = 1; // the array we're merging into
+        while (i < lists.length) {
+            ListNode merged = sortedHead;
+            ListNode add = lists[i];
+            while (add != null) {
+                if (add.val >= merged.val && (merged.next == null || add.val <= merged.next.val)) {
+                    ListNode addNext = add.next;
+                    addAfter(merged, add);
+                    add = addNext;
+                    merged = merged.next;
+                } else {
+                    merged = merged.next;
+                }
+            }
+            i++;
+        }
         return sortedHead;
+    }
+
+    /**
+     * Change the successor for a node
+     * @param first the node for which to change the successor
+     * @param second the new successor
+     */
+    private void addAfter(ListNode first, ListNode second) {
+        second.next = first.next;
+        first.next = second;
     }
 
 }
