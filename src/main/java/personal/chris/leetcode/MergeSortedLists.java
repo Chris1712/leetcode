@@ -14,10 +14,24 @@ public class MergeSortedLists {
         ListNode sortedHead = lists[0];
         int i = 1; // the array we're merging into
         while (i < lists.length) {
+            if (lists[i] == null) {
+                i++;
+                continue;
+            } else if (sortedHead == null) {
+                sortedHead = lists[i];
+                i++;
+                continue;
+            }
             ListNode merged = sortedHead;
             ListNode add = lists[i];
+            if (add.val < merged.val) {
+                // If the list we're adding has a lower first value, just swap so we make that the list we merge into
+                sortedHead = add;
+                add = merged;
+                merged = sortedHead;
+            }
             while (add != null) {
-                if (add.val >= merged.val && (merged.next == null || add.val <= merged.next.val)) {
+                if (merged.next == null || add.val <= merged.next.val) {
                     ListNode addNext = add.next;
                     addAfter(merged, add);
                     add = addNext;
