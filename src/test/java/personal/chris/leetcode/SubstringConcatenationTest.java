@@ -51,4 +51,16 @@ class SubstringConcatenationTest {
         assertEquals(Collections.emptyList(), result);
     }
 
+    @Test
+    void repeatedMatch() {
+        List<Integer> result = substr.findSubstring("foo", new String[]{"foo", "foo"});
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    void repeatedMatch2() {
+        List<Integer> result = substr.findSubstring("foofoo", new String[]{"foo", "foo"});
+        assertEquals(Arrays.asList(0), result);
+    }
+
 }
