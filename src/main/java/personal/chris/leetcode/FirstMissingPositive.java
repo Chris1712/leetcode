@@ -1,9 +1,7 @@
 package personal.chris.leetcode;
 
-import java.util.Arrays;
-
 /**
- * To solve <a href="https://leetcode.com/problems/first-missing-positive/>41. First Missing Positive</a>
+ * To solve <a href="https://leetcode.com/problems/first-missing-positive/">41. First Missing Positive</a>
  * HARD
  */
 public class FirstMissingPositive {
