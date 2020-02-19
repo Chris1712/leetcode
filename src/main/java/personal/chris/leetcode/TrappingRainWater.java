@@ -7,6 +7,10 @@ package personal.chris.leetcode;
 public class TrappingRainWater {
 
     public int trap(int[] height) {
+        // Go from left to right, remembering a current leftmost position ('wall')
+        // and then looking for a dip and a successive higher position
+        // When this happens, "fill up" the intermediate spots so they're flat, and then go from the wall again
+        // Move the wall position left successively if there are no dips and the new wall is of >= height
 
         int water = 0; // count of water filled in
 
