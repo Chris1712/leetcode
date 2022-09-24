@@ -8,7 +8,7 @@ public class InteropTest {
 
     @Test
     void callKotlin() {
-        Temp tmp = new Temp();
+        KotlinTrial tmp = new KotlinTrial();
         int result = tmp.add(5, 3);
 
         assertEquals(8, result);
