@@ -32,7 +32,7 @@ class WildcardMatching {
             return isMatch(s.substring(1), p.substring(1))
         } else if (first == '*') {
             // We can either match the * to no more characters:
-            val removed = isMatch(s, p.substring(1))
+            val removed = isMatch(s, removeStars(p))
             // Or to one more character
             val continued = isMatch(s.substring(1), p)
             // If either worked we're happy
@@ -42,6 +42,16 @@ class WildcardMatching {
         } else {
             return false
         }
+    }
+
+    fun removeStars(pattern: String): String {
+        // * is equivalent to **
+        // so instead of removing one wildcard we should remove as many as we can,
+        var index = 0
+        while ((index < pattern.length) && (pattern[index] == '*') ) {
+            index++
+        }
+        return pattern.substring(index)
     }
 
 }

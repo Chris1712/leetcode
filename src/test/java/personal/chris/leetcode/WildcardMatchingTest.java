@@ -1,10 +1,13 @@
 package personal.chris.leetcode;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.time.Duration;
+import java.time.Instant;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WildcardMatchingTest {
 
@@ -68,6 +71,45 @@ public class WildcardMatchingTest {
     @Test
     void entireStringFromEnd() {
         assertFalse(matching.isMatch("abc", "a?"));
+    }
+
+    @Test
+    void slow() {
+        var start = Instant.now();
+        Boolean result = matching.isMatch(
+                "abbabbbaabaaabbbbbabbabbabbbabbaaabbbababbabaaabbab",
+                "*aabb***aa**a******aa*"
+        );
+        Duration taken = Duration.between(start, Instant.now());
+
+        assertTrue(taken.toMillis() < 1000);
+        assertTrue(result);
+    }
+
+
+    @Nested
+    class removeStars {
+        @Test
+        void oneStar() {
+            String res = matching.removeStars("*abc*");
+
+            assertEquals("abc*", res);
+        }
+
+        @Test
+        void manyStars() {
+            String res = matching.removeStars("***x*yz");
+
+            assertEquals("x*yz", res);
+        }
+
+        @Test
+        void allStars() {
+            String res = matching.removeStars("*");
+
+            assertEquals("", res);
+        }
+
     }
 
 }
