@@ -82,8 +82,29 @@ public class WildcardMatchingTest {
         );
         Duration taken = Duration.between(start, Instant.now());
 
+        assertTrue(taken.toMillis() < 100);
+        assertTrue(result);
+    }
+
+    @Test
+    void slow2() {
+        var start = Instant.now();
+        Boolean result = matching.isMatch(
+                "abbaabbbbababaababababbabbbaaaabbbbaaabbbabaabbbbbabbbbabbabbaaabaaaabbbbbbaaabbabbbbababbbaaabbabbabb",
+                "***b**a*a*b***b*a*b*bbb**baa*bba**b**bb***b*a*aab*a**"
+
+        );
+        Duration taken = Duration.between(start, Instant.now());
+
         assertTrue(taken.toMillis() < 1000);
         assertTrue(result);
+    }
+
+    @Test
+    void big() {
+
+
+
     }
 
 

@@ -6,6 +6,9 @@ package personal.chris.leetcode
  */
 class WildcardMatching {
 
+    val badStrings: MutableSet<String> = HashSet()
+    val goodStrings: MutableSet<String> = HashSet()
+
     /**
      * @param s input string - lower case english letters
      * @param p pattern - lower case english letters plus ? and *
@@ -14,6 +17,24 @@ class WildcardMatching {
      * * matches any sequence of 0 or more characters
      */
     fun isMatch(s: String, p: String): Boolean {
+        if (badStrings.contains("$s/$p")) {
+            return false
+        }
+        if (goodStrings.contains("$s/$p")) {
+            return true
+        }
+
+        val result = internalIsMatch(s, p)
+        if (!result) {
+            badStrings.add("$s/$p")
+        } else {
+            goodStrings.add("$s/$p")
+        }
+        return result
+    }
+
+
+    private fun internalIsMatch(s: String, p: String): Boolean {
         // Iterate through the pattern and strip down the string
 
         if (p.isEmpty()) {
