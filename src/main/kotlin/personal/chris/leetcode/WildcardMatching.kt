@@ -48,6 +48,12 @@ class WildcardMatching {
             return false;
         }
 
+        // Cheaty heuristic: if the pattern without *'s is longer than the input it won't match
+        if (p.replace("*", "").length > s.length) {
+            return false
+        }
+
+
         val first: Char = p[0];
         if (first == '?') {
             return isMatch(s.substring(1), p.substring(1))
