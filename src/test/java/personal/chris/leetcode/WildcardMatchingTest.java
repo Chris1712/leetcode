@@ -36,6 +36,31 @@ public class WildcardMatchingTest {
     }
 
     @Test
+    void wildcardMiddle() {
+        assertTrue(matching.isMatch("agyugyua", "a*a"));
+    }
+
+    @Test
+    void wildcardEmpty() {
+        assertTrue(matching.isMatch("ab", "ab*"));
+    }
+
+    @Test
+    void twoWildcards() {
+        assertTrue(matching.isMatch("zbhjbhjdsab", "*a*"));
+    }
+
+    @Test
+    void twoWildcardsInARow() {
+        assertTrue(matching.isMatch("abc", "*a***"));
+    }
+
+    @Test
+    void twoWildcardsInARow2() {
+        assertTrue(matching.isMatch("a", "*a***"));
+    }
+
+    @Test
     void entireStringFromStart() {
         assertFalse(matching.isMatch("abc", "?c"));
     }
