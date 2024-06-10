@@ -34,6 +34,9 @@ class WildcardMatching {
     }
 
 
+    /**
+     * Inner logic to be wrapped by caching layer
+     */
     private fun internalIsMatch(s: String, p: String): Boolean {
         // Iterate through the pattern and strip down the string
 
@@ -52,7 +55,6 @@ class WildcardMatching {
         if (p.replace("*", "").length > s.length) {
             return false
         }
-
 
         val first: Char = p[0];
         if (first == '?') {
